@@ -40,7 +40,7 @@ def login():
         user = User.query.first()
         if username == user.username and user.validate_password(password):
             login_user(user)
-            flash('Login success')
+            flash('Login success.')
             return redirect(url_for('index'))
         flash('Invalid username or password.')
         return redirect(url_for('login'))
@@ -50,7 +50,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('Goodbye')
+    flash('Goodbye.')
     return redirect(url_for('index'))
 
 @app.cli.command()
@@ -64,7 +64,7 @@ def admin(username, password):
         user.username = username
         user.set_password(password)
     else:
-        click.echo('Createing user...')
+        click.echo('Creating user...')
         user = User(username=username, name='Admin')
         user.set_password(password)
         db.session.add(user)
@@ -129,7 +129,7 @@ def settings():
     if request.method == 'POST':
         name = request.form['name']
         if not name or len(name) > 28:
-            flash('Invaild input')
+            flash('Invalid input.')
             return redirect(url_for('settings'))
         current_user.name = name
         db.session.commit()
